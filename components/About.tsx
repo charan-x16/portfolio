@@ -59,7 +59,7 @@ export default function About() {
               </p>
               <p>
                 My current focus areas are RAG applications, multimodal AI, AI
-                agents, FastAPI-based ML services, anomaly detection, and practical
+                agents, FastAPI-based ML services, Anomaly Detection, and practical
                 deployment patterns for AI products.
               </p>
             </div>

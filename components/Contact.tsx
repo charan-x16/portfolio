@@ -35,7 +35,7 @@ export default function Contact() {
           <div className="grid gap-3">
             <a
               href={`mailto:${site.email}`}
-              className="premium-card flex items-center gap-4 p-4 transition hover:-translate-y-1"
+              className="premium-card flex items-center gap-4 p-4 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Mail className="h-5 w-5 text-accent" aria-hidden="true" />
               <span className="text-sm text-muted">{site.email}</span>
@@ -44,7 +44,7 @@ export default function Contact() {
               href={site.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="premium-card flex items-center gap-4 p-4 transition hover:-translate-y-1"
+              className="premium-card flex items-center gap-4 p-4 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Linkedin className="h-5 w-5 text-accent" aria-hidden="true" />
               <span className="text-sm text-muted">linkedin.com/in/charanx16</span>
@@ -53,7 +53,7 @@ export default function Contact() {
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="premium-card flex items-center gap-4 p-4 transition hover:-translate-y-1"
+              className="premium-card flex items-center gap-4 p-4 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Github className="h-5 w-5 text-accent" aria-hidden="true" />
               <span className="text-sm text-muted">github.com/charan-x16</span>
@@ -76,6 +76,7 @@ export default function Contact() {
                 name="name"
                 type="text"
                 required
+                autoComplete="name"
                 value={formState.name}
                 onChange={(event) => setFormState({ ...formState, name: event.target.value })}
                 className="mt-2 w-full rounded-2xl border border-border bg-background/70 px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/20"
@@ -91,6 +92,8 @@ export default function Contact() {
                 name="email"
                 type="email"
                 required
+                autoComplete="email"
+                spellCheck={false}
                 value={formState.email}
                 onChange={(event) => setFormState({ ...formState, email: event.target.value })}
                 className="mt-2 w-full rounded-2xl border border-border bg-background/70 px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/20"
@@ -106,6 +109,7 @@ export default function Contact() {
                 name="message"
                 required
                 rows={6}
+                autoComplete="off"
                 value={formState.message}
                 onChange={(event) => setFormState({ ...formState, message: event.target.value })}
                 className="mt-2 w-full resize-none rounded-2xl border border-border bg-background/70 px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/20"

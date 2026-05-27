@@ -1,72 +1,75 @@
+'use client'
+
 import Link from 'next/link'
+import { useMemo, useState } from 'react'
 import { ArrowUpRight, BookOpen, Github, Lock, Play, type LucideIcon } from 'lucide-react'
 import { featuredProjects } from '@/data/projects'
-import type { Project } from '@/types/project'
+import {
+  getProjectCaseStudyUrl,
+  getProjectDemoUrl,
+  getProjectGithubUrl,
+  isPrivateProject,
+} from '@/lib/projectLinks'
+import type { ProjectFilter } from '@/types/project'
 import { Badge } from '@/components/ui/Badge'
 import { ButtonLink } from '@/components/ui/ButtonLink'
+import { ProjectArchitecture } from '@/components/ProjectArchitecture'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 
-function ProjectPreview({ project }: { project: Project }) {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-border bg-background/60 p-4">
-      <div className="absolute inset-x-8 top-0 h-24 bg-accent/20 blur-3xl" />
-      <div className="relative flex items-center justify-between">
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
-          {project.preview.label}
-        </span>
-        <span className="rounded-full border border-border px-2.5 py-1 text-[10px] uppercase tracking-[0.16em] text-muted">
-          {project.status}
-        </span>
-      </div>
-      <p className="relative mt-4 min-h-12 text-sm font-medium leading-6 text-foreground">
-        {project.preview.headline}
-      </p>
-      <div className="relative mt-5 grid grid-cols-5 gap-2">
-        {project.preview.nodes.map((node, index) => (
-          <div key={node} className="flex flex-col items-center gap-2">
-            <div className="h-2 w-full rounded-full bg-gradient-to-r from-accent/25 to-violet-400/40" />
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-surface text-[10px] font-semibold text-foreground">
-              {index + 1}
-            </div>
-            <span className="max-w-[4.5rem] text-center text-[10px] leading-4 text-muted">
-              {node}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+type ProjectFilterOption = 'All' | ProjectFilter
+
+const projectFilters: ProjectFilterOption[] = [
+  'All',
+  'RAG',
+  'Agents',
+  'Multimodal',
+  'ML',
+  'Backend',
+  'Private',
+]
 
 function ProjectAction({
   href,
   label,
   icon: Icon,
-  unavailableLabel,
+  variant = 'secondary',
 }: {
   href?: string
   label: string
   icon: LucideIcon
-  unavailableLabel: string
+  variant?: 'primary' | 'secondary'
 }) {
   if (!href) {
-    return (
-      <span className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-border bg-surface/40 px-4 py-2 text-sm font-semibold text-muted">
-        <Lock className="h-4 w-4" aria-hidden="true" />
-        {unavailableLabel}
-      </span>
-    )
+    return null
   }
 
   return (
-    <ButtonLink href={href} external variant="secondary" icon={Icon} className="min-h-10 px-4">
+    <ButtonLink href={href} external variant={variant} icon={Icon} className="min-h-10 px-4">
       {label}
     </ButtonLink>
   )
 }
 
+function ProjectLabel({ children, icon: Icon }: { children: React.ReactNode; icon: LucideIcon }) {
+  return (
+    <span className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-border bg-surface/40 px-4 py-2 text-sm font-semibold text-muted">
+      <Icon className="h-4 w-4" aria-hidden="true" />
+      {children}
+    </span>
+  )
+}
+
 export default function Projects() {
+  const [activeFilter, setActiveFilter] = useState<ProjectFilterOption>('All')
+  const visibleProjects = useMemo(() => {
+    if (activeFilter === 'All') {
+      return featuredProjects
+    }
+
+    return featuredProjects.filter((project) => project.filters.includes(activeFilter))
+  }, [activeFilter])
+
   return (
     <section id="projects" className="section-shell">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -81,11 +84,43 @@ export default function Projects() {
         </ButtonLink>
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-2">
-        {featuredProjects.map((project, index) => (
+      <div
+        id="project-filter-controls"
+        className="mt-8 flex flex-wrap gap-2 rounded-3xl border border-border bg-surface/40 p-2"
+        role="group"
+        aria-label="Filter featured projects"
+      >
+        {projectFilters.map((filter) => {
+          const isActive = activeFilter === filter
+
+          return (
+            <button
+              key={filter}
+              type="button"
+              aria-pressed={isActive}
+              aria-controls="featured-project-grid"
+              aria-label={`Show ${filter} projects`}
+              onClick={() => setActiveFilter(filter)}
+              className={`min-h-10 rounded-full px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                isActive
+                  ? 'bg-accent text-accent-foreground shadow-[0_14px_40px_rgba(63,140,255,0.24)]'
+                  : 'text-muted hover:bg-surface hover:text-foreground'
+              }`}
+            >
+              {filter}
+            </button>
+          )
+        })}
+      </div>
+
+      <div id="featured-project-grid" className="mt-10 grid gap-6 lg:grid-cols-2">
+        {visibleProjects.map((project, index) => (
           <ScrollReveal key={project.slug} delay={(index % 2) * 0.08}>
-            <article className="premium-card group flex h-full flex-col gap-6 p-5 transition duration-300 hover:-translate-y-1 sm:p-6">
-              <ProjectPreview project={project} />
+            <article
+              aria-labelledby={`project-${project.slug}-title`}
+              className="premium-card group flex h-full flex-col gap-6 p-5 transition duration-300 hover:-translate-y-1 focus-within:-translate-y-1 focus-within:ring-2 focus-within:ring-accent/40 sm:p-6"
+            >
+              <ProjectArchitecture project={project} variant="compact" />
 
               <div>
                 <div className="flex flex-wrap items-center gap-3">
@@ -96,19 +131,40 @@ export default function Projects() {
                 </div>
                 <div className="mt-4 flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-2xl font-semibold tracking-tight text-foreground">
+                    <h3
+                      id={`project-${project.slug}-title`}
+                      className="text-2xl font-semibold tracking-tight text-foreground"
+                    >
                       {project.title}
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-muted">{project.description}</p>
+                    {project.disclaimer ? (
+                      <p className="mt-4 rounded-2xl border border-border bg-surface/50 px-4 py-3 text-xs leading-5 text-muted">
+                        {project.disclaimer}
+                      </p>
+                    ) : null}
                   </div>
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground"
-                    aria-label={`Open ${project.title} case study`}
-                  >
-                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
+                  {getProjectCaseStudyUrl(project) ? (
+                    <Link
+                      href={getProjectCaseStudyUrl(project)!}
+                      className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      aria-label={`Open ${project.title} case study`}
+                    >
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  ) : null}
                 </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {project.metricBadges.map((badge) => (
+                  <span
+                    key={badge}
+                    className="rounded-full border border-accent/25 bg-accent/10 px-3 py-1.5 text-xs font-medium text-foreground"
+                  >
+                    {badge}
+                  </span>
+                ))}
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
@@ -125,7 +181,10 @@ export default function Projects() {
                   <ul className="mt-2 space-y-2 text-sm leading-6 text-muted">
                     {project.architecture.slice(0, 3).map((item) => (
                       <li key={item} className="flex gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                          aria-hidden="true"
+                        />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -156,26 +215,33 @@ export default function Projects() {
               </div>
 
               <div className="mt-auto flex flex-wrap gap-3 border-t border-border pt-5">
+                {isPrivateProject(project) && !getProjectGithubUrl(project) ? (
+                  <ProjectLabel icon={Lock}>Private repo</ProjectLabel>
+                ) : null}
                 <ProjectAction
-                  href={project.github}
+                  href={getProjectGithubUrl(project)}
                   label="GitHub"
-                  unavailableLabel="Private repo"
                   icon={Github}
                 />
+                {isPrivateProject(project) && !getProjectDemoUrl(project) ? (
+                  <ProjectLabel icon={Play}>Demo on request</ProjectLabel>
+                ) : null}
                 <ProjectAction
-                  href={project.demo}
+                  href={getProjectDemoUrl(project)}
                   label="Live Demo"
-                  unavailableLabel="Demo on request"
                   icon={Play}
-                />
-                <ButtonLink
-                  href={`/projects/${project.slug}`}
                   variant="primary"
-                  icon={BookOpen}
-                  className="min-h-10 px-4"
-                >
-                  Case Study
-                </ButtonLink>
+                />
+                {getProjectCaseStudyUrl(project) ? (
+                  <ButtonLink
+                    href={getProjectCaseStudyUrl(project)!}
+                    variant="primary"
+                    icon={BookOpen}
+                    className="min-h-10 px-4"
+                  >
+                    Case Study
+                  </ButtonLink>
+                ) : null}
               </div>
             </article>
           </ScrollReveal>

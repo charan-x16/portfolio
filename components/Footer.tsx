@@ -16,7 +16,7 @@ export default function Footer() {
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full px-3 py-2 text-sm text-muted transition hover:bg-surface hover:text-foreground"
+              className="rounded-full px-3 py-2 text-sm text-muted transition hover:bg-surface hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {item.label}
             </a>
@@ -33,8 +33,8 @@ export default function Footer() {
             href={site.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground"
-            aria-label="GitHub"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="Open GitHub profile"
           >
             <Github className="h-4 w-4" aria-hidden="true" />
           </a>
@@ -42,15 +42,15 @@ export default function Footer() {
             href={site.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground"
-            aria-label="LinkedIn"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="Open LinkedIn profile"
           >
             <Linkedin className="h-4 w-4" aria-hidden="true" />
           </a>
           <a
             href={`mailto:${site.email}`}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground"
-            aria-label="Email"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition hover:border-accent/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="Email Sridhar Charan Chekka"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
           </a>

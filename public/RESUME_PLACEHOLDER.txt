@@ -1,15 +1,15 @@
 # Resume Placeholder
 
 Place your resume PDF file in this directory as:
-`Sridhar_Charan_Resume.pdf`
+`Sridhar_Charan_Chekka_AI_Engineer_Resume.pdf`
 
 This file will be downloadable from the portfolio website.
 
 ## Instructions:
 1. Export your resume as a PDF
-2. Rename it to: `Sridhar_Charan_Resume.pdf`
+2. Rename it to: `Sridhar_Charan_Chekka_AI_Engineer_Resume.pdf`
 3. Place it in the `/public` folder
 4. The download button in the Hero and Certifications sections will link to this file
 
 Note: The public folder is accessible at the root URL of your deployed site.
-Example: https://yourdomain.com/Sridhar_Charan_Resume.pdf
+Example: https://yourdomain.com/Sridhar_Charan_Chekka_AI_Engineer_Resume.pdf

@@ -5,7 +5,7 @@ export const site = {
   location: 'Kakinada, India',
   github: 'https://github.com/charan-x16',
   linkedin: 'https://linkedin.com/in/charanx16',
-  resume: '/Sridhar_Charan_Resume.pdf',
+  resume: '/Sridhar_Charan_Chekka_AI_Engineer_Resume.pdf',
 }
 
 export const navLinks = [
@@ -20,24 +20,27 @@ export const navLinks = [
 
 export const impactStats = [
   {
-    label: 'AI systems shipped',
-    value: '10+',
-    detail: 'RAG, agents, ML APIs, and applied AI prototypes.',
+    label: 'Avg RAG evaluation score',
+    value: '96.27%',
+    detail:
+      'Retriva internal evaluation across faithfulness, relevancy, context precision, and context recall.',
   },
   {
-    label: 'Core accuracy benchmark',
+    label: 'ML benchmark accuracy',
     value: '96%',
-    detail: 'Employee burnout prediction experiment with structured ML workflow.',
+    detail:
+      'Employee burnout prediction experiment with structured preprocessing, feature engineering, and regression modeling.',
   },
   {
-    label: 'AI stacks integrated',
-    value: '15+',
-    detail: 'LLMs, vector databases, FastAPI services, and workflow frameworks.',
+    label: 'End-to-end AI apps',
+    value: '4+',
+    detail:
+      'Full workflows with UI, backend, model layer, retrieval/agent logic, and deployment-ready structure.',
   },
   {
-    label: 'Certifications',
-    value: '5+',
-    detail: 'Continuous learning across ML, NLP, analytics, and MLOps.',
+    label: 'Core AI themes',
+    value: '3',
+    detail: 'RAG systems, agent workflows, and anomaly/intelligence systems.',
   },
 ]
 
@@ -67,7 +70,7 @@ export const engineeringHighlights = [
     title: 'RAG pipelines',
     description:
       'Chunking, embeddings, retrieval, grounding, response shaping, and evaluation loops for domain-specific answers.',
-    tools: ['LangChain', 'Vector DBs', 'Embeddings', 'Qwen', 'Prompt Eval'],
+    tools: ['LangChain', 'Vector Databases', 'Embeddings', 'Qwen', 'Prompt Eval'],
     icon: 'DatabaseZap',
   },
   {
@@ -92,7 +95,7 @@ export const engineeringHighlights = [
     icon: 'Server',
   },
   {
-    title: 'Vector databases',
+    title: 'Vector Databases',
     description:
       'Index design, metadata filters, source-aware retrieval, semantic lookup, and retrieval quality tuning.',
     tools: ['FAISS', 'Chroma', 'Embeddings', 'Metadata'],
@@ -124,7 +127,7 @@ export const skills = [
     category: 'Generative AI',
     items: [
       'RAG',
-      'MRAG',
+      'Multimodal RAG',
       'LLM Apps',
       'AI Agents',
       'LangChain',
@@ -151,7 +154,7 @@ export const skills = [
   },
   {
     category: 'Tools',
-    items: ['VS Code', 'Jupyter', 'Power BI', 'N8N', 'Hugging Face', 'Claude Code'],
+    items: ['VS Code', 'Jupyter', 'Power BI', 'n8n', 'Hugging Face', 'Claude Code'],
   },
 ]
 
@@ -164,7 +167,7 @@ export const experience = [
       'Building AI systems for industrial intelligence, monitoring, anomaly detection, and operational decision support.',
     impact: [
       'Led development of FurnaceMind, an AI-powered blast furnace intelligence platform.',
-      'Designed real-time monitoring and anomaly detection workflows for industrial signals.',
+      'Designed monitoring and anomaly detection workflows for industrial signals.',
       'Built RAG and multi-agent architecture for explainable operational recommendations.',
       'Focused on deployable service boundaries and production-oriented API design.',
     ],
@@ -236,24 +239,21 @@ export const certifications = [
 
 export const technicalNotes = [
   {
-    title: 'Designing RAG Systems That Stay Grounded',
-    category: 'RAG Systems',
-    readingTime: '6 min read',
+    title: 'Designing RAG systems that stay grounded',
+    tags: ['RAG', 'Evaluation', 'Retrieval'],
     description:
-      'Notes on chunking, retrieval quality, citations, and response contracts for production RAG apps.',
+      'How I think about retrieval quality, source-aware context, reranking, and evaluation before trusting LLM answers.',
   },
   {
-    title: 'From Prompt Demo to FastAPI AI Service',
-    category: 'Deployment',
-    readingTime: '5 min read',
+    title: 'From prompt demo to FastAPI AI service',
+    tags: ['FastAPI', 'Backend', 'Deployment'],
     description:
-      'A practical checklist for turning an LLM workflow into an API with clean inputs and traceable outputs.',
+      'Why production AI apps need clear API boundaries, validation, environment config, logging, and repeatable deployment paths.',
   },
   {
-    title: 'When to Use Agents Instead of a Single LLM Call',
-    category: 'AI Agents',
-    readingTime: '7 min read',
+    title: 'When to use agents instead of a single LLM call',
+    tags: ['Agents', 'LangGraph', 'CrewAI'],
     description:
-      'How to decide between simple chains, agent graphs, and multi-agent workflows.',
+      'Agents are useful when a task needs planning, tools, shared state, and multi-step reasoning. Otherwise, a simpler chain is usually better.',
   },
 ]

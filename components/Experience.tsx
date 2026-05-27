@@ -38,7 +38,10 @@ export default function Experience() {
                   <ul className="mt-5 grid gap-3">
                     {item.impact.map((impact) => (
                       <li key={impact} className="flex gap-3 text-sm leading-6 text-muted">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                          aria-hidden="true"
+                        />
                         <span>{impact}</span>
                       </li>
                     ))}

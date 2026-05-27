@@ -4,27 +4,37 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Sridhar Charan Chekka | AI Engineer Portfolio',
+    default: 'Sridhar Charan Chekka | AI Engineer - RAG, Agents & ML APIs',
     template: '%s | Sridhar Charan Chekka',
   },
   description:
-    'Proof-of-work portfolio for an AI/ML Engineer building LLM applications, RAG systems, ML APIs, AI agents, and production-ready AI workflows.',
+    'Portfolio of Sridhar Charan Chekka, an AI Engineer building RAG systems, multimodal AI applications, agent workflows, anomaly detection systems, and production-ready ML APIs.',
   keywords: [
     'AI Engineer',
     'Machine Learning Engineer',
-    'RAG Systems',
-    'LLM Applications',
-    'AI Agents',
+    'RAG',
+    'Generative AI',
+    'LangChain',
+    'LangGraph',
+    'CrewAI',
     'FastAPI',
-    'MLOps',
-    'Portfolio',
+    'Vector Databases',
+    'Multimodal AI',
+    'ML APIs',
+    'Agent Workflows',
   ],
   authors: [{ name: 'Sridhar Charan Chekka' }],
   openGraph: {
     title: 'Sridhar Charan Chekka | AI Engineer Portfolio',
     description:
-      'Project-first AI engineering portfolio with case studies, architecture notes, and production-minded system design.',
+      'Applied AI portfolio featuring RAG systems, multimodal AI, agent workflows, industrial anomaly intelligence, and FastAPI-based ML applications.',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Sridhar Charan Chekka | AI Engineer Portfolio',
+    description:
+      'Applied AI portfolio featuring RAG systems, multimodal AI, agent workflows, industrial anomaly intelligence, and FastAPI-based ML applications.',
   },
   robots: {
     index: true,

@@ -13,15 +13,21 @@ export type ProjectPreview = {
   label: string
   headline: string
   nodes: string[]
+  flow?: string[]
 }
+
+export type ProjectFilter = 'RAG' | 'Agents' | 'Multimodal' | 'ML' | 'Backend' | 'Private'
 
 export type Project = {
   title: string
   slug: string
   eyebrow: string
   description: string
+  disclaimer?: string
   problem: string
   role: string
+  filters: ProjectFilter[]
+  metricBadges: string[]
   stack: string[]
   metrics: ProjectMetric[]
   architecture: string[]
@@ -36,5 +42,5 @@ export type Project = {
   github?: string
   demo?: string
   featured: boolean
-  status: 'Public' | 'Private' | 'Research'
+  status: 'Public' | 'Private' | 'Research' | 'Featured'
 }
