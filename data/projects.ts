@@ -2,15 +2,167 @@ import type { Project } from '@/types/project'
 
 export const projects: Project[] = [
   {
+    title: 'Retriva',
+    slug: 'retriva',
+    eyebrow: 'Multimodal RAG',
+    description:
+      'A production-style multimodal hybrid RAG system for real-world PDFs using dense and sparse retrieval, reranking, OCR, visual fallback, query correction, and RAG evaluation.',
+    problem:
+      'Real-world PDFs often contain scanned pages, tables, images, and complex layouts that break text-only RAG pipelines. Retriva improves document question answering by combining text extraction, table/image handling, hybrid retrieval, reranking, query correction, and grounded response generation.',
+    role:
+      'Designed and built the retrieval pipeline, multimodal fallback flow, FastAPI backend, Streamlit interface, evaluation dashboard, and grounded answer workflow.',
+    filters: ['RAG', 'Multimodal', 'Backend'],
+    metricBadges: [
+      '96.27% RAG Eval',
+      'Hybrid Retrieval',
+      'OCR + Visual Fallback',
+      'FastAPI + Streamlit',
+    ],
+    stack: [
+      'Multimodal RAG',
+      'Hybrid Retrieval',
+      'Reranking',
+      'OCR',
+      'Qdrant',
+      'FastAPI',
+      'Streamlit',
+      'RAG Eval',
+      'Python',
+      'BGE embeddings',
+      'BM25',
+      'RRF',
+      'ColPali',
+      'SQLite',
+      'OpenRouter',
+    ],
+    metrics: [
+      {
+        label: 'Evaluation score',
+        value: '96.27%',
+        detail: 'Average internal RAG evaluation score across faithfulness, relevancy, precision, and recall.',
+      },
+      {
+        label: 'Retrieval mode',
+        value: 'Hybrid',
+        detail: 'Dense BGE embeddings and sparse BM25 are merged with Reciprocal Rank Fusion.',
+      },
+      {
+        label: 'PDF coverage',
+        value: 'Multimodal',
+        detail: 'Designed for scanned, image-heavy, table-heavy, and layout-heavy PDF documents.',
+      },
+    ],
+    architecture: [
+      'PDF upload accepts real-world documents through the Streamlit interface.',
+      'Text, table, image, and OCR extraction preserve document content across layouts.',
+      'Dense retrieval uses BGE embeddings for semantic document matching.',
+      'Sparse retrieval uses BM25 for keyword-sensitive evidence lookup.',
+      'Reciprocal Rank Fusion merges dense and sparse candidates into a stronger retrieval set.',
+      'BGE reranking reorders retrieved chunks for answer-quality relevance.',
+      'CRAG-style query correction rewrites weak or ambiguous questions before retrying retrieval.',
+      'Multimodal fallback uses visual retrieval when text extraction is incomplete or unreliable.',
+      'Grounded answer generation cites retrieved evidence instead of relying on model memory.',
+      'RAG evaluation dashboard tracks faithfulness, answer relevancy, context precision, and context recall.',
+    ],
+    aiArchitecture: [
+      'Hybrid retrieval pipeline combines BGE dense embeddings, BM25 sparse retrieval, RRF fusion, and BGE reranking.',
+      'Self-correction layer detects weak retrieval signals and applies CRAG-style query correction before answer generation.',
+      'Multimodal fallback uses OCR and visual retrieval for scanned, image-heavy, and layout-heavy pages.',
+      'Grounded response workflow constrains generation to retrieved context and evaluation signals.',
+    ],
+    systemDesign: [
+      'FastAPI backend separates upload, extraction, retrieval, reranking, correction, generation, and evaluation endpoints.',
+      'Streamlit interface provides a practical product surface for PDF ingestion, question answering, and evaluation review.',
+      'Qdrant stores vectorized document chunks while SQLite supports lightweight metadata and local persistence.',
+      'Pipeline is modular so extraction, retrieval, reranking, and evaluation components can be tested independently.',
+    ],
+    challenges: [
+      'Handling scanned pages and image-heavy PDFs where text extraction alone loses critical evidence.',
+      'Balancing semantic retrieval with exact keyword matching for technical PDF questions.',
+      'Reducing hallucination by forcing answer generation to stay grounded in retrieved context.',
+      'Creating an evaluation loop that measures more than answer fluency.',
+    ],
+    results: [
+      'Reached a 96.27% average internal RAG evaluation score.',
+      'Evaluated faithfulness, answer relevancy, context precision, and context recall.',
+      'Built a retrieval stack that handles scanned, image-heavy, and layout-heavy PDFs more reliably than text-only RAG.',
+      'Delivered a full product-style workflow with FastAPI services, Streamlit UI, and an evaluation dashboard.',
+    ],
+    future: [
+      'Add document-level citations with page previews and bounding-box evidence.',
+      'Introduce batch evaluation suites for regression testing across PDF categories.',
+      'Add authentication, persistent project workspaces, and deployment observability.',
+      'Support additional multimodal models and configurable reranking strategies.',
+    ],
+    timeline: [
+      {
+        phase: 'Document ingestion',
+        detail: 'Built PDF upload and extraction flow for text, tables, images, and OCR-derived content.',
+      },
+      {
+        phase: 'Hybrid retrieval',
+        detail: 'Combined BGE dense retrieval, BM25 sparse retrieval, RRF fusion, and BGE reranking.',
+      },
+      {
+        phase: 'Self-correction',
+        detail: 'Added CRAG-style query correction and multimodal fallback for weak retrieval cases.',
+      },
+      {
+        phase: 'Evaluation',
+        detail: 'Created a dashboard for faithfulness, answer relevancy, context precision, and context recall.',
+      },
+    ],
+    implementationHighlights: [
+      'Built dense + sparse retrieval instead of relying on a single vector search path.',
+      'Added OCR and visual fallback so scanned and layout-heavy PDFs remain answerable.',
+      'Designed a RAG evaluation dashboard to measure grounding quality, not just response style.',
+    ],
+    preview: {
+      label: 'Self-correcting multimodal RAG',
+      headline:
+        'PDF upload -> multimodal extraction -> hybrid retrieval -> reranking -> correction -> grounded answer -> evaluation',
+      flow: [
+        'PDF Input',
+        'Text / Table / Image / OCR Extraction',
+        'Dense Retrieval + Sparse Retrieval',
+        'RRF Fusion + BGE Reranking',
+        'Query Correction',
+        'Grounded Answer',
+        'RAG Evaluation Dashboard',
+      ],
+      nodes: [
+        'Upload',
+        'Extract',
+        'Dense',
+        'BM25',
+        'RRF',
+        'Rerank',
+        'Correct',
+        'Visual',
+        'Answer',
+        'Evaluate',
+      ],
+    },
+    featured: true,
+    status: 'Featured',
+  },
+  {
     title: 'FurnaceMind',
     slug: 'furnacemind',
     eyebrow: 'Industrial AI intelligence platform',
     description:
-      'A blast furnace intelligence platform for real-time monitoring, anomaly detection, retrieval-assisted operations, and agent-guided decision support.',
+      'A blast furnace intelligence platform for real-time monitoring, Anomaly Detection, retrieval-assisted operations, and agent-guided decision support.',
     problem:
       'Industrial operators need fast, explainable insight from sensor streams, process logs, and operating knowledge without forcing engineers to inspect every signal manually.',
     role:
-      'Designed the AI workflow, anomaly detection loop, retrieval layer, agent orchestration, and decision-support interface for industrial users.',
+      'Designed the AI workflow, Anomaly Detection loop, retrieval layer, agent orchestration, and decision-support interface for industrial users.',
+    filters: ['RAG', 'Agents', 'ML', 'Backend', 'Private'],
+    metricBadges: [
+      'Private Industrial AI',
+      'Anomaly Detection',
+      'RAG + Agents',
+      'Operator Support',
+    ],
     stack: [
       'Python',
       'FastAPI',
@@ -18,7 +170,7 @@ export const projects: Project[] = [
       'RAG',
       'Time Series ML',
       'Computer Vision',
-      'Vector DB',
+      'Vector Databases',
       'Docker',
     ],
     metrics: [
@@ -104,15 +256,24 @@ export const projects: Project[] = [
     status: 'Private',
   },
   {
-    title: 'Symp_bot',
+    title: 'Multimodal Health Information Assistant',
     slug: 'symp-bot',
-    eyebrow: 'Multimodal AI doctor assistant',
+    eyebrow: 'Health information assistant',
     description:
-      'A multimodal assistant that accepts voice and image inputs, extracts symptom context, and generates structured disease suggestions with voice feedback.',
+      'A multimodal health information assistant that accepts text, voice, and image inputs, extracts structured symptom context, and produces cautious, easy-to-follow informational responses with voice feedback.',
+    disclaimer:
+      'Not a diagnostic tool. Built as a multimodal AI interface experiment for structured symptom intake, cautious explanation, and voice-enabled interaction.',
     problem:
-      'Healthcare-style assistants need to combine voice, image, and text context while keeping responses structured, explainable, and easy for users to follow.',
+      'Health information assistants need to combine voice, image, and text context while keeping structured intake, cautious explanation, and easy-to-follow informational responses clear for users.',
     role:
       'Built the multimodal flow, LLM reasoning prompts, voice integration, and user-facing interaction loop.',
+    filters: ['Multimodal'],
+    metricBadges: [
+      'Text + Voice + Image',
+      'Structured Intake',
+      'Voice Feedback',
+      'Safety Disclaimer',
+    ],
     stack: [
       'Python',
       'Llama 4 Maverick',
@@ -143,7 +304,7 @@ export const projects: Project[] = [
       'Capture user text, image, and voice inputs.',
       'Transcribe speech and normalize multimodal context.',
       'Route structured context to the LLM with safety-oriented prompt constraints.',
-      'Generate disease suggestions and explanation blocks.',
+      'Generate cautious informational responses and explanation blocks.',
       'Return text and voice response to the user.',
     ],
     aiArchitecture: [
@@ -159,16 +320,16 @@ export const projects: Project[] = [
     ],
     challenges: [
       'Combining heterogeneous inputs without losing important user context.',
-      'Keeping health-oriented output cautious and non-diagnostic.',
+      'Keeping health-information output cautious, limited, and clearly informational.',
       'Designing prompts that return usable structure rather than conversational sprawl.',
     ],
     results: [
-      'Delivered a working multimodal assistant with voice and image-aware symptom flow.',
-      'Created a cleaner interaction model than text-only chat for symptom explanation.',
+      'Delivered a working multimodal health information assistant with voice and image-aware symptom context flow.',
+      'Created a cleaner interaction model than text-only chat for structured symptom intake and cautious explanation.',
       'Demonstrated applied LLM integration across multiple AI service boundaries.',
     ],
     future: [
-      'Add a medical disclaimer and stronger triage/safety guardrails.',
+      'Add stronger safety copy, escalation guidance, and source-grounded health information references.',
       'Introduce a retrieval layer for trusted health references.',
       'Add evaluation examples for prompt regression testing.',
     ],
@@ -211,6 +372,13 @@ export const projects: Project[] = [
       'Travel planning requires search, preference reasoning, budget tradeoffs, itinerary sequencing, and explanation - too much for a single prompt to handle cleanly.',
     role:
       'Designed the agent responsibilities, planning flow, LLM prompts, and Streamlit product interface.',
+    filters: ['Agents'],
+    metricBadges: [
+      'Multi-Agent Planning',
+      'CrewAI',
+      'Streamlit UI',
+      'Itinerary Generation',
+    ],
     stack: [
       'Python',
       'CrewAI',
@@ -307,12 +475,19 @@ export const projects: Project[] = [
       'Developers need fast codebase orientation, but generic LLM answers fail when they are not grounded in actual repository context.',
     role:
       'Built the repository ingestion flow, chunking strategy, retrieval logic, and LLM explanation layer.',
+    filters: ['RAG', 'Backend'],
+    metricBadges: [
+      'Codebase RAG',
+      'Repo Ingestion',
+      'Grounded Answers',
+      'Vector Search',
+    ],
     stack: [
       'Python',
       'LangChain',
       'RAG',
       'Qwen3-4B',
-      'Vector DB',
+      'Vector Databases',
       'Git',
       'Code Analysis',
     ],
@@ -404,6 +579,8 @@ export const projects: Project[] = [
       'Long documents need concise summaries that preserve context and domain meaning, not only extract high-frequency sentences.',
     role:
       'Implemented preprocessing, model experimentation, fine-tuning workflow, and evaluation planning.',
+    filters: ['ML'],
+    metricBadges: ['Transformer NLP', 'BERT + T5', 'ROUGE Eval', 'Document Summaries'],
     stack: ['Python', 'BERT', 'T5', 'Transformers', 'NLP', 'ROUGE', 'Pandas'],
     metrics: [
       {
@@ -482,7 +659,26 @@ export const projects: Project[] = [
   },
 ]
 
-export const featuredProjects = projects.filter((project) => project.featured)
+const featuredProjectOrder = [
+  'retriva',
+  'furnacemind',
+  'source-code-analyzer',
+  'journey-bot',
+  'symp-bot',
+]
+
+export const featuredProjects = projects
+  .filter((project) => project.featured)
+  .sort((a, b) => {
+    const fallbackIndex = Number.MAX_SAFE_INTEGER
+    const aIndex = featuredProjectOrder.indexOf(a.slug)
+    const bIndex = featuredProjectOrder.indexOf(b.slug)
+
+    return (
+      (aIndex === -1 ? fallbackIndex : aIndex) -
+      (bIndex === -1 ? fallbackIndex : bIndex)
+    )
+  })
 
 export function getProjectBySlug(slug: string) {
   return projects.find((project) => project.slug === slug)

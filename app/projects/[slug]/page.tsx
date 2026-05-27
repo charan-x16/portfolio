@@ -7,13 +7,17 @@ import {
   CheckCircle2,
   Github,
   Lightbulb,
+  Lock,
+  Play,
   Rocket,
   type LucideIcon,
 } from 'lucide-react'
 import { getProjectBySlug, projects } from '@/data/projects'
+import { getProjectDemoUrl, getProjectGithubUrl, isPrivateProject } from '@/lib/projectLinks'
 import { Badge } from '@/components/ui/Badge'
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import { MetricCard } from '@/components/ui/MetricCard'
+import { ProjectArchitecture } from '@/components/ProjectArchitecture'
 
 type ProjectPageProps = {
   params: {
@@ -71,6 +75,15 @@ function ListCard({
   )
 }
 
+function ProjectLabel({ children, icon: Icon }: { children: React.ReactNode; icon: LucideIcon }) {
+  return (
+    <span className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border bg-surface/40 px-5 py-2 text-sm font-semibold text-muted">
+      <Icon className="h-4 w-4" aria-hidden="true" />
+      {children}
+    </span>
+  )
+}
+
 export default function ProjectPage({ params }: ProjectPageProps) {
   const project = getProjectBySlug(params.slug)
 
@@ -84,7 +97,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       <div className="mx-auto max-w-7xl">
         <Link
           href="/#projects"
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-4 py-2 text-sm font-medium text-muted transition hover:border-accent/50 hover:text-foreground"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-4 py-2 text-sm font-medium text-muted transition hover:border-accent/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Back to projects
@@ -100,40 +113,42 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               {project.title}
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{project.description}</p>
+            <div className="mt-5 flex max-w-3xl flex-wrap gap-2">
+              {project.metricBadges.map((badge) => (
+                <span
+                  key={badge}
+                  className="rounded-full border border-accent/25 bg-accent/10 px-3 py-1.5 text-xs font-medium text-foreground"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+            {project.disclaimer ? (
+              <p className="mt-5 max-w-3xl rounded-2xl border border-border bg-surface/50 px-4 py-3 text-sm leading-6 text-muted">
+                {project.disclaimer}
+              </p>
+            ) : null}
             <div className="mt-8 flex flex-wrap gap-3">
-              {project.github ? (
-                <ButtonLink href={project.github} external variant="secondary" icon={Github}>
+              {isPrivateProject(project) && !getProjectGithubUrl(project) ? (
+                <ProjectLabel icon={Lock}>Private repo</ProjectLabel>
+              ) : null}
+              {getProjectGithubUrl(project) ? (
+                <ButtonLink href={getProjectGithubUrl(project)!} external variant="secondary" icon={Github}>
                   GitHub
                 </ButtonLink>
               ) : null}
-              {project.demo ? (
-                <ButtonLink href={project.demo} external variant="primary" icon={ArrowUpRight}>
+              {isPrivateProject(project) && !getProjectDemoUrl(project) ? (
+                <ProjectLabel icon={Play}>Demo on request</ProjectLabel>
+              ) : null}
+              {getProjectDemoUrl(project) ? (
+                <ButtonLink href={getProjectDemoUrl(project)!} external variant="primary" icon={ArrowUpRight}>
                   Live Demo
                 </ButtonLink>
               ) : null}
             </div>
           </div>
 
-          <div className="premium-card overflow-hidden p-5">
-            <div className="rounded-3xl border border-border bg-background/70 p-5">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-                Architecture diagram
-              </p>
-              <p className="mt-3 text-sm leading-6 text-muted">{project.preview.headline}</p>
-              <div className="mt-6 grid gap-3">
-                {project.preview.nodes.map((node, index) => (
-                  <div key={node} className="grid grid-cols-[2.5rem_1fr] items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-surface text-sm font-semibold text-foreground">
-                      {index + 1}
-                    </div>
-                    <div className="rounded-2xl border border-border bg-surface/60 px-4 py-3 text-sm text-muted">
-                      {node}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <ProjectArchitecture project={project} variant="detailed" className="premium-card p-5" />
         </section>
 
         <section className="grid gap-4 md:grid-cols-3">

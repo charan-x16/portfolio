@@ -34,7 +34,7 @@ export default function Hero() {
             transition={{ delay: 0.1, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="mt-7 max-w-5xl text-5xl font-semibold tracking-[-0.04em] text-foreground sm:text-6xl lg:text-7xl"
           >
-            Building production-ready AI systems.
+            AI Engineer building RAG systems, agent workflows, and production-ready ML APIs.
           </motion.h1>
 
           <motion.p
@@ -43,22 +43,36 @@ export default function Hero() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="mt-6 max-w-2xl text-lg leading-8 text-muted"
           >
-            I design and deploy AI applications with LLMs, RAG systems, ML APIs,
-            AI agents, and scalable backend workflows. My work focuses on clear
-            architecture, grounded model behavior, and product-ready execution.
+            I build applied AI systems that combine retrieval, multimodal processing,
+            LLM reasoning, evaluation, and backend services. My work includes hybrid
+            RAG pipelines, industrial anomaly intelligence, agentic planning systems,
+            and deployable FastAPI/Streamlit applications.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.25, duration: 0.6 }}
+            className="mt-5 max-w-3xl font-mono text-xs uppercase leading-6 tracking-[0.14em] text-muted"
+          >
+            Python · FastAPI · LangChain · LangGraph · CrewAI · Qdrant · RAG
+            Evaluation · Docker
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row"
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
           >
             <ButtonLink href="#projects" variant="primary" icon={ArrowRight}>
-              View Projects
+              View Featured Projects
             </ButtonLink>
             <ButtonLink href={site.resume} download icon={Download}>
               Download Resume
+            </ButtonLink>
+            <ButtonLink href={site.github} external icon={Github}>
+              GitHub
             </ButtonLink>
             <ButtonLink href="#contact" variant="ghost" icon={Mail}>
               Contact Me
@@ -76,7 +90,7 @@ export default function Hero() {
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 transition hover:text-foreground"
+              className="inline-flex items-center gap-2 rounded-full transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Github className="h-4 w-4" aria-hidden="true" />
               GitHub
@@ -85,7 +99,7 @@ export default function Hero() {
               href={site.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 transition hover:text-foreground"
+              className="inline-flex items-center gap-2 rounded-full transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Linkedin className="h-4 w-4" aria-hidden="true" />
               LinkedIn
@@ -102,7 +116,7 @@ export default function Hero() {
           <div className="absolute -inset-6 rounded-[2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(63,140,255,0.28),transparent_58%)] blur-2xl" />
           <div className="premium-card relative overflow-hidden p-5 sm:p-6">
             <div className="flex items-center justify-between border-b border-border pb-4">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2" aria-hidden="true">
                 <span className="h-3 w-3 rounded-full bg-red-400/80" />
                 <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
                 <span className="h-3 w-3 rounded-full bg-green-400/80" />
